@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # If the request is not for an existing file
+    RewriteCond %{REQUEST_FILENAME} !-f
+    # If the request is not for an existing directory
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Rewrite the request to redirect.php, passing the path as the 'code' parameter.
+    # This rule assumes your .htaccess file is in the /url-shortener/ directory.
+    # And redirect.php is in /url-shortener/php/
+    # It captures the part of the URL after /url-shortener/
+    # Example: http://localhost/url-shortener/mycode -> php/redirect.php?code=mycode
+    RewriteRule ^(.+)$ php/redirect.php?code=$1 [L,QSA]
+</IfModule>
