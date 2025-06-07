@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Stars</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #0c0c2e, #1a1a4a);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .game-container {
+            text-align: center;
+            position: relative;
+        }
+        
+        .game-title {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.7), 
+                         0 0 40px rgba(255, 215, 0, 0.5),
+                         0 0 60px rgba(255, 215, 0, 0.3);
+            background: linear-gradient(to right, #FFD700, #FF6B6B, #4ECDC4, #45B7D1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.7), 
+                             0 0 20px rgba(255, 215, 0, 0.5),
+                             0 0 30px rgba(255, 215, 0, 0.3);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.9), 
+                             0 0 40px rgba(255, 215, 0, 0.7),
+                             0 0 60px rgba(255, 215, 0, 0.5);
+            }
+        }
+        
+        canvas {
+            border: 3px solid #333;
+            background: linear-gradient(180deg, #001122, #003366);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 150, 255, 0.3);
+        }
+        
+        .ui {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            width: 800px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .controls {
+            margin-top: 15px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .mode-selector {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 150, 255, 0.3);
+            max-width: 600px;
+            z-index: 10;
+        }
+        
+        .mode-selector h2 {
+            margin-bottom: 30px;
+            color: #4ECDC4;
+            font-size: 2rem;
+        }
+        
+        .mode-button {
+            background: linear-gradient(45deg, #4ECDC4, #45B7D1);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin: 10px;
+            transition: transform 0.2s;
+            min-width: 150px;
+        }
+        
+        .mode-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
+        }
+        
+        .settings-panel {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .settings-panel h3 {
+            color: #FFD700;
+            margin-bottom: 20px;
+        }
+        
+        .setting-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 15px 0;
+            text-align: left;
+        }
+        
+        .setting-row label {
+            min-width: 120px;
+            margin-right: 15px;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .slider {
+            flex: 1;
+            margin: 0 10px;
+            -webkit-appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4ECDC4;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4ECDC4;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+        }
+        
+        .value-display {
+            min-width: 50px;
+            text-align: center;
+            color: #FFD700;
+            font-weight: bold;
+        }
+        
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            display: none;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+            z-index: 10;
+        }
+        
+        .game-over h2 {
+            color: #FF6B6B;
+            margin-bottom: 20px;
+        }
+        
+        .sad-emoji {
+            font-size: 48px;
+            margin: 20px 0;
+        }
+        
+        button {
+            background: #4CAF50;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+            transition: background 0.2s;
+        }
+        
+        button:hover {
+            background: #45a049;
+        }
+        
+        .restart-button {
+            background: #FF6B6B;
+        }
+        
+        .restart-button:hover {
+            background: #FF5252;
+        }
+        
+        .audio-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 5;
+        }
+        
+        .audio-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .audio-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .milestone-counter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: none;
+            z-index: 5;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .milestone-display {
+            font-weight: bold;
+            color: #FFD700;
+            font-size: 16px;
+        }
+        
+        .milestone-notification {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            z-index: 5;
+            display: none;
+            animation: popIn 0.5s ease-out;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            border: 2px solid #FFD700;
+        }
+        
+        @keyframes popIn {
+            0% {
+                transform: translateX(-50%) scale(0.5);
+                opacity: 0;
+            }
+            70% {
+                transform: translateX(-50%) scale(1.1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-50%) scale(1);
+            }
+        }
+        
+        .milestone-notification.show {
+            display: block;
+            animation: fadeOut 1s ease-in 1.5s forwards;
+        }
+        
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+        }
+        
+        .pause-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+            display: none;
+        }
+        
+        .pause-message {
+            font-size: 48px;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .pause-button {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 5;
+            display: none;
+        }
+        
+        .pause-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="game-title">CATCH THE STARS</h1>
+        
+        <div class="ui">
+            <div>Score: <span id="score">0</span></div>
+            <div id="timeDisplay">Time: <span id="timer">30</span>s</div>
+            <div>High Score: <span id="highScore">0</span></div>
+        </div>
+        
+        <div class="audio-controls">
+            <button class="audio-toggle" id="bgmToggle" onclick="toggleBGM()">
+                <span id="bgmIcon">🔊</span> BGM
+            </button>
+            <button class="audio-toggle" id="sfxToggle" onclick="toggleSFX()">
+                <span id="sfxIcon">🔊</span> SFX
+            </button>
+        </div>
+        
+        <div class="milestone-counter" id="milestoneCounter">
+            Milestone: <span class="milestone-display" id="milestoneDisplay">0</span>
+        </div>
+        
+        <button class="pause-button" id="pauseButton" onclick="togglePause()">⏸️ Pause</button>
+        
+        <div class="milestone-notification" id="milestoneNotification"></div>
+        
+        <div style="position: relative;">
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            
+            <div class="pause-overlay" id="pauseOverlay">
+                <div class="pause-message">PAUSED</div>
+            </div>
+            
+            <div class="mode-selector" id="modeSelector">
+                <h2>🌟 Choose Game Mode 🌟</h2>
+                
+                <div class="settings-panel">
+                    <h3>⚙️ Game Settings</h3>
+                    
+                    <div class="setting-row">
+                        <label>Basket Speed:</label>
+                        <div class="slider-container">
+                            <span>Slow</span>
+                            <input type="range" id="speedSlider" class="slider" min="2" max="8" value="4" step="0.5">
+                            <span>Fast</span>
+                        </div>
+                        <div class="value-display" id="speedValue">4</div>
+                    </div>
+                    
+                    <div class="setting-row">
+                        <label>Spawn Distance:</label>
+                        <div class="slider-container">
+                            <span>Close</span>
+                            <input type="range" id="distanceSlider" class="slider" min="50" max="200" value="120" step="10">
+                            <span>Wide</span>
+                        </div>
+                        <div class="value-display" id="distanceValue">120</div>
+                    </div>
+                    
+                    <div class="setting-row">
+                        <label>Star Speed:</label>
+                        <div class="slider-container">
+                            <span>Slow</span>
+                            <input type="range" id="starSpeedSlider" class="slider" min="1" max="5" value="2" step="0.1">
+                            <span>Fast</span>
+                        </div>
+                        <div class="value-display" id="starSpeedValue">2</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <button class="mode-button" onclick="selectMode('30sec')">
+                        30 Seconds<br>
+                        <small>Quick Challenge</small>
+                    </button>
+                    <button class="mode-button" onclick="selectMode('1min')">
+                        1 Minute<br>
+                        <small>Standard Game</small>
+                    </button>
+                    <button class="mode-button" onclick="selectMode('infinite')">
+                        Infinite Mode<br>
+                        <small>One Miss = Game Over!</small>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="game-over" id="gameOver">
+                <h2>Game Over!</h2>
+                <div class="sad-emoji">😢</div>
+                <p>Final Score: <span id="finalScore">0</span></p>
+                <p id="gameOverReason"></p>
+                <button class="restart-button" onclick="showModeSelector()">Play Again</button>
+            </div>
+        </div>
+        
+        <div class="controls">
+            Use ← → arrow keys to move the basket
+        </div>
+    </div>
+
+    <script>
+        // Game constants
+        const GAME_CONFIG = {
+            CANVAS_WIDTH: 800,
+            CANVAS_HEIGHT: 600,
+            BASKET_WIDTH: 80,
+            BASKET_HEIGHT: 20,
+            STAR_SIZE: 15,
+            INITIAL_STAR_SPEED: 2,
+            STAR_SPAWN_RATE: 1000, // milliseconds
+            SPEED_INCREASE_INTERVAL: 30 // seconds for infinite mode
+        };
+        
+        // Milestone messages
+        const MILESTONE_MESSAGES = [
+            "Great Going!",
+            "Banger!",
+            "Awesome!",
+            "Fantastic!",
+            "Incredible!",
+            "Unstoppable!",
+            "Phenomenal!",
+            "Epic!",
+            "Legendary!",
+            "Marvelous!",
+            "Stellar!",
+            "Superb!",
+            "Terrific!",
+            "Amazing!",
+            "Outstanding!",
+            "Exceptional!",
+            "Brilliant!",
+            "Magnificent!",
+            "Splendid!",
+            "Wonderful!",
+            "Impressive!",
+            "Fabulous!",
+            "Astounding!",
+            "Mind-blowing!",
+            "Spectacular!",
+            "Masterful!",
+            "Extraordinary!",
+            "Prodigious!",
+            "Remarkable!",
+            "Sensational!",
+            "Divine!",
+            "Heavenly!",
+            "Majestic!",
+            "Transcendent!",
+            "Cosmic!",
+            "Galactic!",
+            "Stellar!",
+            "Interstellar!",
+            "Supernova!",
+            "Big Bang!"
+        ];
+
+        // Game state
+        let gameState = {
+            canvas: null,
+            ctx: null,
+            basket: { x: 360, y: 560 },
+            stars: [],
+            score: 0,
+            timeLeft: 0,
+            starSpeed: GAME_CONFIG.INITIAL_STAR_SPEED,
+            basketSpeed: 4,
+            maxSpawnDistance: 120,
+            gameRunning: false,
+            keys: {},
+            lastStarSpawn: 0,
+            gameStartTime: 0,
+            highScore: 0,
+            gameMode: null,
+            gameDuration: 0,
+            lastStarPosition: null,
+            bgmEnabled: true,
+            sfxEnabled: true,
+            audioContext: null,
+            backgroundMusic: null,
+            milestoneCounter: 0,
+            milestoneLevel: 0,
+            lastMilestone: 0,
+            paused: false,
+            starSpawnRate: GAME_CONFIG.STAR_SPAWN_RATE
+        };
+
+        // Audio functions
+        function initAudio() {
+            if (!gameState.audioContext) {
+                gameState.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playTone(frequency, duration, volume = 0.1, type = 'sine') {
+            if (!gameState.sfxEnabled || !gameState.audioContext) return;
+            
+            const oscillator = gameState.audioContext.createOscillator();
+            const gainNode = gameState.audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(gameState.audioContext.destination);
+            
+            oscillator.frequency.value = frequency;
+            oscillator.type = type;
+            
+            gainNode.gain.setValueAtTime(volume, gameState.audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, gameState.audioContext.currentTime + duration);
+            
+            oscillator.start(gameState.audioContext.currentTime);
+            oscillator.stop(gameState.audioContext.currentTime + duration);
+        }
+
+        function playCatchSound() {
+            playTone(800, 0.2, 0.15, 'sine');
+            setTimeout(() => playTone(1200, 0.15, 0.1, 'sine'), 50);
+        }
+
+        function playMissSound() {
+            playTone(150, 0.5, 0.1, 'sawtooth');
+        }
+
+        function startBackgroundMusic() {
+            if (!gameState.bgmEnabled || !gameState.audioContext) return;
+            
+            const playNote = (freq, time, duration) => {
+                setTimeout(() => {
+                    if (gameState.gameRunning && !gameState.paused) {
+                        playTone(freq, duration, 0.05, 'triangle');
+                    }
+                }, time);
+            };
+            
+            const musicLoop = () => {
+                if (!gameState.gameRunning || gameState.paused) return;
+                
+                const melody = [523, 659, 784, 659, 523, 392, 523];
+                melody.forEach((freq, i) => {
+                    playNote(freq, i * 400, 0.3);
+                });
+                
+                setTimeout(musicLoop, 3000);
+            };
+            
+            musicLoop();
+        }
+
+        function toggleBGM() {
+            gameState.bgmEnabled = !gameState.bgmEnabled;
+            const icon = document.getElementById('bgmIcon');
+            icon.textContent = gameState.bgmEnabled ? '🔊' : '🔇';
+            
+            if (gameState.bgmEnabled && gameState.gameRunning && !gameState.paused) {
+                startBackgroundMusic();
+            }
+        }
+
+        function toggleSFX() {
+            gameState.sfxEnabled = !gameState.sfxEnabled;
+            const icon = document.getElementById('sfxIcon');
+            icon.textContent = gameState.sfxEnabled ? '🔊' : '🔇';
+        }
+        
+        function togglePause() {
+            if (!gameState.gameRunning) return;
+            
+            gameState.paused = !gameState.paused;
+            const pauseButton = document.getElementById('pauseButton');
+            const pauseOverlay = document.getElementById('pauseOverlay');
+            
+            if (gameState.paused) {
+                pauseButton.textContent = '▶️ Resume';
+                pauseOverlay.style.display = 'flex';
+            } else {
+                pauseButton.textContent = '⏸️ Pause';
+                pauseOverlay.style.display = 'none';
+                
+                // Resume background music
+                if (gameState.bgmEnabled) {
+                    startBackgroundMusic();
+                }
+                
+                // Resume game loop
+                gameLoop();
+            }
+        }
+
+        // Initialize game
+        function initGame() {
+            gameState.canvas = document.getElementById('gameCanvas');
+            gameState.ctx = gameState.canvas.getContext('2d');
+            
+            initAudio();
+            
+            document.addEventListener('keydown', handleKeyDown);
+            document.addEventListener('keyup', handleKeyUp);
+            
+            document.getElementById('speedSlider').addEventListener('input', function() {
+                gameState.basketSpeed = parseFloat(this.value);
+                document.getElementById('speedValue').textContent = this.value;
+            });
+            
+            document.getElementById('distanceSlider').addEventListener('input', function() {
+                gameState.maxSpawnDistance = parseInt(this.value);
+                document.getElementById('distanceValue').textContent = this.value;
+            });
+            
+            document.getElementById('starSpeedSlider').addEventListener('input', function() {
+                gameState.starSpeed = parseFloat(this.value);
+                document.getElementById('starSpeedValue').textContent = this.value;
+            });
+            
+            showModeSelector();
+        }
+
+        function showModeSelector() {
+            document.getElementById('modeSelector').style.display = 'block';
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('milestoneCounter').style.display = 'none';
+            document.getElementById('pauseButton').style.display = 'none';
+            gameState.gameRunning = false;
+            gameState.paused = false;
+        }
+
+        function selectMode(mode) {
+            gameState.gameMode = mode;
+            document.getElementById('modeSelector').style.display = 'none';
+            
+            switch(mode) {
+                case '30sec':
+                    gameState.gameDuration = 30;
+                    document.getElementById('timeDisplay').style.display = 'block';
+                    break;
+                case '1min':
+                    gameState.gameDuration = 60;
+                    document.getElementById('timeDisplay').style.display = 'block';
+                    break;
+                case 'infinite':
+                    gameState.gameDuration = -1;
+                    document.getElementById('timeDisplay').style.display = 'none';
+                    document.getElementById('milestoneCounter').style.display = 'block';
+                    break;
+            }
+            
+            startGame();
+        }
+
+        function handleKeyDown(e) {
+            if (gameState.paused) return;
+            
+            gameState.keys[e.code] = true;
+            
+            if (gameState.audioContext && gameState.audioContext.state === 'suspended') {
+                gameState.audioContext.resume();
+            }
+            
+            // Pause with spacebar
+            if (e.code === 'Space' && gameState.gameRunning) {
+                togglePause();
+                e.preventDefault(); // Prevent scrolling
+            }
+        }
+
+        function handleKeyUp(e) {
+            gameState.keys[e.code] = false;
+        }
+
+        function startGame() {
+            gameState.basket.x = 360;
+            gameState.stars = [];
+            gameState.score = 0;
+            gameState.timeLeft = gameState.gameDuration;
+            gameState.starSpeed = parseFloat(document.getElementById('starSpeedSlider').value);
+            gameState.gameRunning = true;
+            gameState.gameStartTime = Date.now();
+            gameState.lastStarSpawn = 0;
+            gameState.lastStarPosition = null;
+            gameState.milestoneLevel = 0;
+            gameState.lastMilestone = 0;
+            gameState.paused = false;
+            gameState.starSpawnRate = GAME_CONFIG.STAR_SPAWN_RATE;
+            
+            document.getElementById('milestoneDisplay').textContent = '0';
+            document.getElementById('pauseButton').textContent = '⏸️ Pause';
+            document.getElementById('pauseButton').style.display = 'block';
+            document.getElementById('pauseOverlay').style.display = 'none';
+            
+            updateUI();
+            startBackgroundMusic();
+            gameLoop();
+        }
+
+        function gameLoop() {
+            if (!gameState.gameRunning || gameState.paused) return;
+            
+            update();
+            render();
+            
+            requestAnimationFrame(gameLoop);
+        }
+
+        function update() {
+            const currentTime = Date.now();
+            const elapsedTime = currentTime - gameState.gameStartTime;
+            
+            if (gameState.gameMode !== 'infinite') {
+                gameState.timeLeft = Math.max(0, gameState.gameDuration - Math.floor(elapsedTime / 1000));
+                
+                if (gameState.timeLeft <= 0) {
+                    endGame('Time\'s up! Great job!');
+                    return;
+                }
+            }
+            
+            if (gameState.gameMode === 'infinite') {
+                const speedLevel = Math.floor(elapsedTime / (GAME_CONFIG.SPEED_INCREASE_INTERVAL * 1000));
+                gameState.starSpeed = parseFloat(document.getElementById('starSpeedSlider').value) + speedLevel * 0.4;
+            } else {
+                const speedLevel = Math.floor(elapsedTime / 15000);
+                gameState.starSpeed = parseFloat(document.getElementById('starSpeedSlider').value) + speedLevel * 0.5;
+            }
+            
+            updateBasket();
+            
+            if (currentTime - gameState.lastStarSpawn > gameState.starSpawnRate) {
+                spawnStar();
+                gameState.lastStarSpawn = currentTime;
+            }
+            
+            updateStars();
+            
+            checkCollisions();
+            
+            updateUI();
+            
+            // Check for milestones in infinite mode
+            if (gameState.gameMode === 'infinite') {
+                checkMilestones();
+            }
+        }
+        
+        function checkMilestones() {
+            const milestoneThreshold = (gameState.milestoneLevel + 1) * 30;
+            
+            if (gameState.score >= milestoneThreshold) {
+                gameState.milestoneLevel = Math.floor(gameState.score / 30);
+                document.getElementById('milestoneDisplay').textContent = gameState.milestoneLevel * 30;
+                
+                // Only show notification if we've passed a new milestone
+                if (gameState.milestoneLevel > gameState.lastMilestone) {
+                    gameState.lastMilestone = gameState.milestoneLevel;
+                    
+                    // Show notification
+                    const notification = document.getElementById('milestoneNotification');
+                    const randomMessage = MILESTONE_MESSAGES[Math.floor(Math.random() * MILESTONE_MESSAGES.length)];
+                    notification.textContent = `${randomMessage} ${gameState.milestoneLevel * 30}`;
+                    notification.classList.add('show');
+                    
+                    // Remove after animation completes
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                    }, 2500);
+                }
+            }
+        }
+
+        function updateBasket() {
+            if (gameState.keys['ArrowLeft'] && gameState.basket.x > 0) {
+                gameState.basket.x -= gameState.basketSpeed;
+            }
+            if (gameState.keys['ArrowRight'] && 
+                gameState.basket.x < GAME_CONFIG.CANVAS_WIDTH - GAME_CONFIG.BASKET_WIDTH) {
+                gameState.basket.x += gameState.basketSpeed;
+            }
+        }
+
+        function spawnStar() {
+            const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57', '#FF9FF3', '#54A0FF'];
+            const shapes = ['star', 'diamond', 'heart', 'plus'];
+            
+            let spawnX;
+            
+            if (gameState.lastStarPosition === null) {
+                spawnX = Math.random() * (GAME_CONFIG.CANVAS_WIDTH - GAME_CONFIG.STAR_SIZE * 2) + GAME_CONFIG.STAR_SIZE;
+            } else {
+                const minDistance = 50;
+                const maxDistance = Math.min(gameState.maxSpawnDistance, GAME_CONFIG.CANVAS_WIDTH - 100);
+                
+                const basketCenter = gameState.basket.x + GAME_CONFIG.BASKET_WIDTH / 2;
+                const lastStarX = gameState.lastStarPosition;
+                
+                const possiblePositions = [];
+                
+                for (let i = 0; i < 5; i++) {
+                    const offset = (Math.random() - 0.5) * maxDistance;
+                    const pos = basketCenter + offset;
+                    if (pos >= GAME_CONFIG.STAR_SIZE && pos <= GAME_CONFIG.CANVAS_WIDTH - GAME_CONFIG.STAR_SIZE) {
+                        possiblePositions.push(pos);
+                    }
+                }
+                
+                const leftBound = Math.max(GAME_CONFIG.STAR_SIZE, lastStarX - maxDistance);
+                const rightBound = Math.min(GAME_CONFIG.CANVAS_WIDTH - GAME_CONFIG.STAR_SIZE, lastStarX + maxDistance);
+                
+                for (let x = leftBound; x <= rightBound; x += 20) {
+                    if (Math.abs(x - lastStarX) >= minDistance) {
+                        possiblePositions.push(x);
+                    }
+                }
+                
+                if (possiblePositions.length > 0) {
+                    spawnX = possiblePositions[Math.floor(Math.random() * possiblePositions.length)];
+                } else {
+                    spawnX = Math.random() * (GAME_CONFIG.CANVAS_WIDTH - GAME_CONFIG.STAR_SIZE * 2) + GAME_CONFIG.STAR_SIZE;
+                }
+            }
+            
+            const star = {
+                x: spawnX,
+                y: -GAME_CONFIG.STAR_SIZE,
+                speed: gameState.starSpeed,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                shape: shapes[Math.floor(Math.random() * shapes.length)],
+                rotation: Math.random() * Math.PI * 2
+            };
+            
+            gameState.stars.push(star);
+            gameState.lastStarPosition = spawnX;
+        }
+
+        function updateStars() {
+            for (let i = gameState.stars.length - 1; i >= 0; i--) {
+                const star = gameState.stars[i];
+                star.y += star.speed;
+                star.rotation += 0.05;
+                
+                if (star.y > GAME_CONFIG.CANVAS_HEIGHT + GAME_CONFIG.STAR_SIZE) {
+                    gameState.stars.splice(i, 1);
+                    playMissSound();
+                    endGame('You missed a star!');
+                    return;
+                }
+            }
+        }
+
+        function checkCollisions() {
+            for (let i = gameState.stars.length - 1; i >= 0; i--) {
+                const star = gameState.stars[i];
+                
+                if (star.x > gameState.basket.x - GAME_CONFIG.STAR_SIZE &&
+                    star.x < gameState.basket.x + GAME_CONFIG.BASKET_WIDTH &&
+                    star.y > gameState.basket.y - GAME_CONFIG.STAR_SIZE &&
+                    star.y < gameState.basket.y + GAME_CONFIG.BASKET_HEIGHT) {
+                    
+                    gameState.score++;
+                    gameState.stars.splice(i, 1);
+                    playCatchSound();
+                }
+            }
+        }
+
+        function render() {
+            const ctx = gameState.ctx;
+            
+            ctx.clearRect(0, 0, GAME_CONFIG.CANVAS_WIDTH, GAME_CONFIG.CANVAS_HEIGHT);
+            
+            // Draw some stars in the background for atmosphere
+            drawBackgroundStars(ctx);
+            
+            gameState.stars.forEach(star => {
+                ctx.fillStyle = star.color;
+                drawShape(ctx, star.x, star.y, GAME_CONFIG.STAR_SIZE, star.shape, star.rotation);
+            });
+            
+            ctx.fillStyle = '#8B4513';
+            ctx.fillRect(gameState.basket.x, gameState.basket.y, 
+                        GAME_CONFIG.BASKET_WIDTH, GAME_CONFIG.BASKET_HEIGHT);
+            
+            ctx.strokeStyle = '#654321';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(gameState.basket.x + GAME_CONFIG.BASKET_WIDTH / 2, 
+                   gameState.basket.y + GAME_CONFIG.BASKET_HEIGHT / 2, 
+                   GAME_CONFIG.BASKET_WIDTH / 3, 0, Math.PI);
+            ctx.stroke();
+        }
+        
+        function drawBackgroundStars(ctx) {
+            const stars = 50;
+            for (let i = 0; i < stars; i++) {
+                const x = (i * 73) % GAME_CONFIG.CANVAS_WIDTH;
+                const y = (i * 57) % GAME_CONFIG.CANVAS_HEIGHT;
+                const size = Math.random() * 2 + 1;
+                const alpha = Math.random() * 0.3 + 0.2;
+                
+                ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function drawShape(ctx, x, y, size, shape, rotation) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(rotation);
+            
+            ctx.shadowColor = ctx.fillStyle;
+            ctx.shadowBlur = 8;
+            
+            ctx.beginPath();
+            
+            switch(shape) {
+                case 'star':
+                    drawStarPath(ctx, size);
+                    break;
+                case 'diamond':
+                    drawDiamondPath(ctx, size);
+                    break;
+                case 'heart':
+                    drawHeartPath(ctx, size);
+                    break;
+                case 'plus':
+                    drawPlusPath(ctx, size);
+                    break;
+            }
+            
+            ctx.fill();
+            ctx.restore();
+        }
+        
+        function drawStarPath(ctx, size) {
+            for (let i = 0; i < 5; i++) {
+                const angle = (i * 4 * Math.PI) / 5;
+                const xPos = Math.cos(angle) * size;
+                const yPos = Math.sin(angle) * size;
+                
+                if (i === 0) {
+                    ctx.moveTo(xPos, yPos);
+                } else {
+                    ctx.lineTo(xPos, yPos);
+                }
+            }
+            ctx.closePath();
+        }
+        
+        function drawDiamondPath(ctx, size) {
+            ctx.moveTo(0, -size);
+            ctx.lineTo(size * 0.7, 0);
+            ctx.lineTo(0, size);
+            ctx.lineTo(-size * 0.7, 0);
+            ctx.closePath();
+        }
+        
+        function drawHeartPath(ctx, size) {
+            const s = size * 0.8;
+            ctx.moveTo(0, s * 0.3);
+            ctx.bezierCurveTo(-s, -s * 0.5, -s, s * 0.5, 0, s);
+            ctx.bezierCurveTo(s, s * 0.5, s, -s * 0.5, 0, s * 0.3);
+            ctx.closePath();
+        }
+        
+        function drawPlusPath(ctx, size) {
+            const thickness = size * 0.3;
+            ctx.moveTo(-thickness, -size);
+            ctx.lineTo(thickness, -size);
+            ctx.lineTo(thickness, -thickness);
+            ctx.lineTo(size, -thickness);
+            ctx.lineTo(size, thickness);
+            ctx.lineTo(thickness, thickness);
+            ctx.lineTo(thickness, size);
+            ctx.lineTo(-thickness, size);
+            ctx.lineTo(-thickness, thickness);
+            ctx.lineTo(-size, thickness);
+            ctx.lineTo(-size, -thickness);
+            ctx.lineTo(-thickness, -thickness);
+            ctx.closePath();
+        }
+
+        function updateUI() {
+            document.getElementById('score').textContent = gameState.score;
+            if (gameState.gameMode !== 'infinite') {
+                document.getElementById('timer').textContent = gameState.timeLeft;
+            }
+        }
+
+        function endGame(reason) {
+            gameState.gameRunning = false;
+            
+            if (gameState.score > gameState.highScore) {
+                gameState.highScore = gameState.score;
+                document.getElementById('highScore').textContent = gameState.highScore;
+            }
+            
+            document.getElementById('finalScore').textContent = gameState.score;
+            document.getElementById('gameOverReason').textContent = reason;
+            document.getElementById('gameOver').style.display = 'block';
+            document.getElementById('pauseButton').style.display = 'none';
+        }
+
+        window.addEventListener('load', initGame);
+    </script>
+</body>
+</html>
