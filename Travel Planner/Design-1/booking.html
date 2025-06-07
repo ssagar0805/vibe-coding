@@ -1,0 +1,411 @@
+<html>
+
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800" />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+
+<body>
+    <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden"
+        style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+        <div class="layout-container flex h-full grow flex-col">
+            <header
+                class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f3f4] px-10 py-3">
+                <div class="flex items-center gap-8">
+                    <div class="flex items-center gap-4 text-[#111518]">
+                        <div class="size-4">
+                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-[#111518] text-lg font-bold leading-tight tracking-[-0.015em]">Travel Assistant
+                        </h2>
+                    </div>
+                    <div class="flex items-center gap-9">
+                        <a class="text-[#111518] text-sm font-medium leading-normal" href="#">Home</a>
+                        <a class="text-[#111518] text-sm font-medium leading-normal" href="#">Explore</a>
+                        <a class="text-[#111518] text-sm font-medium leading-normal" href="#">Trips</a>
+                        <a class="text-[#111518] text-sm font-medium leading-normal" href="#">Inbox</a>
+                    </div>
+                </div>
+                <div class="flex flex-1 justify-end gap-8">
+                    <label class="flex flex-col min-w-40 !h-10 max-w-64">
+                        <div class="flex w-full flex-1 items-stretch rounded-xl h-full">
+                            <div class="text-[#637888] flex border-none bg-[#f0f3f4] items-center justify-center pl-4 rounded-l-xl border-r-0"
+                                data-icon="MagnifyingGlass" data-size="24px" data-weight="regular">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+                                    viewBox="0 0 256 256">
+                                    <path
+                                        d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <input placeholder="Search"
+                                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#111518] focus:outline-0 focus:ring-0 border-none bg-[#f0f3f4] focus:border-none h-full placeholder:text-[#637888] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                                value="" />
+                        </div>
+                    </label>
+                    <button
+                        class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 bg-[#f0f3f4] text-[#111518] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+                        <div class="text-[#111518]" data-icon="Bell" data-size="20px" data-weight="regular">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+                                viewBox="0 0 256 256">
+                                <path
+                                    d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z">
+                                </path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD0uRRqEnKg1EeSRPJYnnd12QCKd1OzHR-kEYnEZisqHKLqiU5C3o4SxcyIIgq4iN3Vt7BEn5lc3T_frQrcgn2l29UCDLcEi5Oa8Ct_V82xFSu7kpDqdNKksjVAkJ6My0gYRR14qOxB9HguWbxbDN4zsJJJO0z1Ge3iif6ERqkC91F2Qt3Y11Qusd-kuNa1TS37haRLe5R26SMZoio9jcl3X0aVZqDvwl9Buu8Dhr-t2O1Tq1-LIQrG1NLHUW9KfdVDoraBOoL8Ghw");'>
+                    </div>
+                </div>
+            </header>
+            <div class="px-40 flex flex-1 justify-center py-5">
+                <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+                    <div class="px-4 py-3">
+                        <label class="flex flex-col min-w-40 h-12 w-full">
+                            <div class="flex w-full flex-1 items-stretch rounded-xl h-full">
+                                <div class="text-[#637888] flex border-none bg-[#f0f3f4] items-center justify-center pl-4 rounded-l-xl border-r-0"
+                                    data-icon="MagnifyingGlass" data-size="24px" data-weight="regular">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                        fill="currentColor" viewBox="0 0 256 256">
+                                        <path
+                                            d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <input placeholder="Search trips"
+                                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#111518] focus:outline-0 focus:ring-0 border-none bg-[#f0f3f4] focus:border-none h-full placeholder:text-[#637888] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                                    value="" />
+                            </div>
+                        </label>
+                    </div>
+                    <div class="flex gap-3 p-3 flex-wrap pr-4">
+                        <button
+                            class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#f0f3f4] pl-4 pr-2">
+                            <p class="text-[#111518] text-sm font-medium leading-normal">Location</p>
+                            <div class="text-[#111518]" data-icon="CaretDown" data-size="20px" data-weight="regular">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+                                    viewBox="0 0 256 256">
+                                    <path
+                                        d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                        <button
+                            class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#f0f3f4] pl-4 pr-2">
+                            <p class="text-[#111518] text-sm font-medium leading-normal">Status</p>
+                            <div class="text-[#111518]" data-icon="CaretDown" data-size="20px" data-weight="regular">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+                                    viewBox="0 0 256 256">
+                                    <path
+                                        d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                        <button
+                            class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#f0f3f4] pl-4 pr-2">
+                            <p class="text-[#111518] text-sm font-medium leading-normal">Date</p>
+                            <div class="text-[#111518]" data-icon="CaretDown" data-size="20px" data-weight="regular">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+                                    viewBox="0 0 256 256">
+                                    <path
+                                        d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+                        <div class="flex flex-col gap-3 pb-3">
+                            <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDOFkhL-yoQLRYHh0SaKJDJALfYCZWhuymAlFCGh48Oco1HV97u4i_2WaY52j595ja67C445jk8618GdmwC-XpqJEiAsOdI3BBU1kdQVPqRLARi7SeZTZu2Pspslzqe109AbU2ILwTCqvyiiVrX9t43VQGAvMKxICC9IvFIpS8RFoWNKc0w2FIe2Z7f3HwBNCj-6_rY1BL3gsUHI-SThjUJ5vXJIjvr2KvjdUiLuwU_knKyCiUQTEp_J10VdlmQ3-qcXfsKD2D-u6g");'>
+                            </div>
+                            <div>
+                                <p class="text-[#111518] text-base font-medium leading-normal">Paris Getaway</p>
+                                <p class="text-[#637888] text-sm font-normal leading-normal">Oct 20 - Oct 27, 2024 ·
+                                    $1,200</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 pb-3">
+                            <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA48UJ7agym8Woq8f2IdmdCBebnBtEs-EaUY9n-ah7HmzbeVwC0UPxmE0djmKgMpsEX8bJkfpRyll2cM2x00Ws1pLZlR_4bwdG2ipC49AcjOPmCYprHbBqgbk_gyOG45qejS4aKr-eyhW14ltJJXUIOmN-6iiAICJRVXYIvWY_-TuPMoAlUj4-QM78QvwWlL_MIqfx0QIHK9bti7AznZCMhCH15F-dAvxCtxEU3fRGEiFJkJ-46ACwPPcAMvJq00njDCg-KcCd8wnI");'>
+                            </div>
+                            <div>
+                                <p class="text-[#111518] text-base font-medium leading-normal">Tokyo Adventure</p>
+                                <p class="text-[#637888] text-sm font-normal leading-normal">Nov 15 - Nov 22, 2024 ·
+                                    $1,500</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 pb-3">
+                            <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDrM0SAJZCdQkKp0XbguA6L64tQiMxHrSqK1QLy95cs9rN4Grs-Yq4t7oowcG5y99Dfq2g9VtrR8JGis37pGKCNewhRmPfHs6D9O1oJmVD-GlnTOmkeTjkOQX_IV8tdUM9lg1AynnlESMBNp7G_RNJqjK6gGOXSJnsrPKbF_98QBt1S2oBqbUOHWNbQ9gEyXNom50eoqkcffBTAkR-wQQ1SCesRYr9YfQFIEQX5ETrE0o_240V81hd66hVBpHp1kkpxBXZme4RQq6o");'>
+                            </div>
+                            <div>
+                                <p class="text-[#111518] text-base font-medium leading-normal">London Calling</p>
+                                <p class="text-[#637888] text-sm font-normal leading-normal">Dec 5 - Dec 12, 2024 ·
+                                    $1,100</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 pb-3">
+                            <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDOFJV4bLWWZTQBPzjCqZ5I80KQl21GhyxMiY9bsWm3edbWKk0QdxmDgvHiXUaNnqsJaaZnNK6O5BzFK9jt0nYnxqvgWtg9VQ3oCuKFgy3desCgwndJIrBgFPB25tqboRbGaZVwSb6C_0u89g30GAwUcn0TpWMGj48MQc8r3o4qjJ3pnZxvDbXtumoWqYOgSBJlcpID9V5MpnnC24mlC0MYQ7kaHSHbCPv_llMrPBvqdl75uebq0yUkrS0xVdJJ52T92ruMh37GpBk");'>
+                            </div>
+                            <div>
+                                <p class="text-[#111518] text-base font-medium leading-normal">New York Exploration</p>
+                                <p class="text-[#637888] text-sm font-normal leading-normal">Jan 10 - Jan 17, 2025 ·
+                                    $1,300</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 pb-3">
+                            <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCDu8sk-6VHVoQ8lOxr9I9Jr2z-YqXfPph2Icwd-UG2nkWSq9dLmcG2VL79QWHiodn4h8uJ71gqLSmu6FlqWoqGyFwa_eBrSKFb96ZsMXESUdES0R1Y6hBtz799TPzOLeqJh7-9MDQZ_7SyPxqVVUfESYPFi3wSZ939yH-Pk6ohyrUi2FkiJUqm5TtCd8pAfQBT8JTjbu_NAfgK-nB5xRsbY2WQVuECqumDQiyO9DNU3M39Mq8VkczY0T8n8gMfH3iKtR7hmuq53Bo");'>
+                            </div>
+                            <div>
+                                <p class="text-[#111518] text-base font-medium leading-normal">Rome Rendezvous</p>
+                                <p class="text-[#637888] text-sm font-normal leading-normal">Feb 2 - Feb 9, 2025 ·
+                                    $1,000</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-3 pb-3">
+                            <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA5fBVdO5DL-pjUtUFffg2UDFkPrQUlXemb1DUreRbZFea8pr2uhBQDzMM3GeCJVsU0hpfQQXDiKPhW9j9Jg1jW8f9mxE7ag-s439K9QJflclOPE52_RDJFy1ib9ABHVS1YtoCXy4d05DN0bHYerf86fHb6la7u4X4sI43T_Sf-kok1lHoAvMvE9B7hzDwJfnIF82SrlAUQ7mB_8vxW3M4am_uR-AEMNCZ6MeU5nqEyl_mGl3ppHQywaBhGIac8TBW2wUT5PpcBzCs");'>
+                            </div>
+                            <div>
+                                <p class="text-[#111518] text-base font-medium leading-normal">Barcelona Escapade</p>
+                                <p class="text-[#637888] text-sm font-normal leading-normal">Mar 1 - Mar 8, 2025 · $900
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-4 py-3 @container">
+                        <div class="flex overflow-hidden rounded-xl border border-[#dce1e5] bg-white">
+                            <table class="flex-1">
+                                <thead>
+                                    <tr class="bg-white">
+                                        <th
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-120 px-4 py-3 text-left text-[#111518] w-[400px] text-sm font-medium leading-normal">
+                                            Trip</th>
+                                        <th
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-240 px-4 py-3 text-left text-[#111518] w-[400px] text-sm font-medium leading-normal">
+                                            Dates</th>
+                                        <th
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-360 px-4 py-3 text-left text-[#111518] w-[400px] text-sm font-medium leading-normal">
+                                            Cost</th>
+                                        <th
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-480 px-4 py-3 text-left text-[#111518] w-60 text-sm font-medium leading-normal">
+                                            Status</th>
+                                        <th
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-600 px-4 py-3 text-left text-[#111518] w-60 text-[#637888] text-sm font-medium leading-normal">
+                                            Actions
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-t border-t-[#dce1e5]">
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-120 h-[72px] px-4 py-2 w-[400px] text-[#111518] text-sm font-normal leading-normal">
+                                            Paris Getaway
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-240 h-[72px] px-4 py-2 w-[400px] text-[#637888] text-sm font-normal leading-normal">
+                                            Oct 20 - Oct 27, 2024
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-360 h-[72px] px-4 py-2 w-[400px] text-[#637888] text-sm font-normal leading-normal">
+                                            $1,200</td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                                            <button
+                                                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#f0f3f4] text-[#111518] text-sm font-medium leading-normal w-full">
+                                                <span class="truncate">Draft</span>
+                                            </button>
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-600 h-[72px] px-4 py-2 w-60 text-[#637888] text-sm font-bold leading-normal tracking-[0.015em]">
+                                            View, Edit, Duplicate, Start Trip
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-t-[#dce1e5]">
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-120 h-[72px] px-4 py-2 w-[400px] text-[#111518] text-sm font-normal leading-normal">
+                                            Tokyo Adventure
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-240 h-[72px] px-4 py-2 w-[400px] text-[#637888] text-sm font-normal leading-normal">
+                                            Nov 15 - Nov 22, 2024
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-360 h-[72px] px-4 py-2 w-[400px] text-[#637888] text-sm font-normal leading-normal">
+                                            $1,500</td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                                            <button
+                                                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#f0f3f4] text-[#111518] text-sm font-medium leading-normal w-full">
+                                                <span class="truncate">Confirmed</span>
+                                            </button>
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-600 h-[72px] px-4 py-2 w-60 text-[#637888] text-sm font-bold leading-normal tracking-[0.015em]">
+                                            View, Edit, Duplicate, Start Trip
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-t-[#dce1e5]">
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-120 h-[72px] px-4 py-2 w-[400px] text-[#111518] text-sm font-normal leading-normal">
+                                            London Calling
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-240 h-[72px] px-4 py-2 w-[400px] text-[#637888] text-sm font-normal leading-normal">
+                                            Dec 5 - Dec 12, 2024
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-360 h-[72px] px-4 py-2 w-[400px] text-[#637888] text-sm font-normal leading-normal">
+                                            $1,100</td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                                            <button
+                                                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#f0f3f4] text-[#111518] text-sm font-medium leading-normal w-full">
+                                                <span class="truncate">Active</span>
+                                            </button>
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-600 h-[72px] px-4 py-2 w-60 text-[#637888] text-sm font-bold leading-normal tracking-[0.015em]">
+                                            View, Edit, Duplicate, Start Trip
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-t-[#dce1e5]">
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-120 h-[72px] px-4 py-2 w-[400px] text-[#111518] text-sm font-normal leading-normal">
+                                            New York Exploration
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-240 h-[72px] px-4 py-2 w-[400px] text-[#637888] text-sm font-normal leading-normal">
+                                            Jan 10 - Jan 17, 2025
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-360 h-[72px] px-4 py-2 w-[400px] text-[#637888] text-sm font-normal leading-normal">
+                                            $1,300</td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                                            <button
+                                                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#f0f3f4] text-[#111518] text-sm font-medium leading-normal w-full">
+                                                <span class="truncate">Draft</span>
+                                            </button>
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-600 h-[72px] px-4 py-2 w-60 text-[#637888] text-sm font-bold leading-normal tracking-[0.015em]">
+                                            View, Edit, Duplicate, Start Trip
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-t-[#dce1e5]">
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-120 h-[72px] px-4 py-2 w-[400px] text-[#111518] text-sm font-normal leading-normal">
+                                            Rome Rendezvous
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-240 h-[72px] px-4 py-2 w-[400px] text-[#637888] text-sm font-normal leading-normal">
+                                            Feb 2 - Feb 9, 2025
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-360 h-[72px] px-4 py-2 w-[400px] text-[#637888] text-sm font-normal leading-normal">
+                                            $1,000</td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                                            <button
+                                                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#f0f3f4] text-[#111518] text-sm font-medium leading-normal w-full">
+                                                <span class="truncate">Confirmed</span>
+                                            </button>
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-600 h-[72px] px-4 py-2 w-60 text-[#637888] text-sm font-bold leading-normal tracking-[0.015em]">
+                                            View, Edit, Duplicate, Start Trip
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-t-[#dce1e5]">
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-120 h-[72px] px-4 py-2 w-[400px] text-[#111518] text-sm font-normal leading-normal">
+                                            Barcelona Escapade
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-240 h-[72px] px-4 py-2 w-[400px] text-[#637888] text-sm font-normal leading-normal">
+                                            Mar 1 - Mar 8, 2025
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-360 h-[72px] px-4 py-2 w-[400px] text-[#637888] text-sm font-normal leading-normal">
+                                            $900</td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                                            <button
+                                                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#f0f3f4] text-[#111518] text-sm font-medium leading-normal w-full">
+                                                <span class="truncate">Active</span>
+                                            </button>
+                                        </td>
+                                        <td
+                                            class="table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-600 h-[72px] px-4 py-2 w-60 text-[#637888] text-sm font-bold leading-normal tracking-[0.015em]">
+                                            View, Edit, Duplicate, Start Trip
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <style>
+                            @container(max-width:120px) {
+                                .table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-120 {
+                                    display: none;
+                                }
+                            }
+
+                            @container(max-width:240px) {
+                                .table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-240 {
+                                    display: none;
+                                }
+                            }
+
+                            @container(max-width:360px) {
+                                .table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-360 {
+                                    display: none;
+                                }
+                            }
+
+                            @container(max-width:480px) {
+                                .table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-480 {
+                                    display: none;
+                                }
+                            }
+
+                            @container(max-width:600px) {
+                                .table-e88bf410-0bf3-47d7-8409-147c84d4409f-column-600 {
+                                    display: none;
+                                }
+                            }
+                        </style>
+                    </div>
+                    <div class="flex justify-stretch">
+                        <div class="flex flex-1 gap-3 flex-wrap px-4 py-3 justify-start">
+                            <button
+                                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#47a6ea] text-[#111518] text-sm font-bold leading-normal tracking-[0.015em]">
+                                <span class="truncate">Book Flight</span>
+                            </button>
+                            <button
+                                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f3f4] text-[#111518] text-sm font-bold leading-normal tracking-[0.015em]">
+                                <span class="truncate">Book Hotel</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
