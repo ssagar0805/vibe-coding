@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NudgePal Buddy</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #fdf6e3; /* Soft beige, inspired by mockups */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+        #buddy-emoji {
+            font-size: 120px;
+            line-height: 1;
+            margin-bottom: 20px;
+            /* Animation for a little life */
+            animation: pulse 2s infinite ease-in-out;
+        }
+        #buddy-status {
+            font-size: 24px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="buddy-emoji"></div>
+        <p id="buddy-status"></p>
+    </div>
+
+    <script>
+        // --- Buddy Logic ---
+
+        // In a real app, this mood would come from our backend logic.
+        // For this visual preview, we'll hardcode it to 'neutral'.
+        const currentMood = 'neutral';
+
+        const buddyDisplay = {
+            emoji: document.getElementById('buddy-emoji'),
+            status: document.getElementById('buddy-status')
+        };
+
+        /**
+         * Updates the buddy's appearance based on the given mood.
+         * @param {string} mood - The current mood ('happy', 'neutral', or 'sad').
+         */
+        function updateBuddy(mood) {
+            const moodMap = {
+                happy: {
+                    emoji: '😊',
+                    text: 'Feeling great!'
+                },
+                neutral: {
+                    emoji: '😐',
+                    text: 'Doing okay.'
+                },
+                sad: {
+                    emoji: '😢',
+                    text: 'Needs a little attention.'
+                }
+            };
+
+            // Default to the 'neutral' state if the mood is unknown
+            const display = moodMap[mood] || moodMap['neutral'];
+
+            buddyDisplay.emoji.textContent = display.emoji;
+            buddyDisplay.status.textContent = display.text;
+        }
+
+        // --- Initial Load ---
+
+        // Set the buddy's initial mood when the page loads.
+        window.onload = function() {
+            updateBuddy(currentMood);
+        };
+    </script>
+
+</body>
+</html>
